@@ -1,0 +1,5 @@
+http:http_mingw.o
+	gcc -Wall -o http http_mingw.o -lws2_32
+
+http_mingw.o:http_mingw.c
+	gcc -Wall -c http_mingw.c -lws2_32

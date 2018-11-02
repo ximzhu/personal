@@ -1,0 +1,114 @@
+/*
+ * Copyright(c) 2018 Ruijie Network. All rights reserved.
+ */
+/*
+ * check_memory_leak.c
+ * original Author: zhuximin@ruijie.com.cn, 2018-5-8
+ *
+ * Check to see if there is a memory leak problem caused
+ * by the improper use of applying for memory.
+ *
+ * History
+ *
+ */
+
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <errno.h>
+
+#define DEFAULT_FILE "http_record.c"    /* The default filename of C file for checking */
+#define DEFAULT_FUNC "malloc"           /* The default check for resource leaks for malloc() */
+#define MAX_NUM_LINE 100                /* Maximum length of a line of code */
+
+static bool is_annotat(char *buffer)
+{
+    int index;
+
+    for(index = 0; index < MAX_NUM_LINE; index++) {
+        if (((buffer[index] == '/') && (buffer[index + 1 == '*']))
+                || ((buffer[index] == '*') && (buffer[index + 1] == '/'))) {
+            return true;
+        } else {
+            continue;
+        }
+    }
+
+    return false;
+}
+
+static bool is_func(char *buffer, char *func_name, int line)
+{
+    char *ptr_tmp;
+    int col;
+    int flag_func_name;
+
+    ptr_tmp = buffer;
+    flag_func_name = 0;
+    printf("func_name is %d\n", strlen(func_name));
+    for (col = 0; col < (MAX_NUM_LINE - strlen(func_name)); col++) {
+        /* function name matching */
+        printf("ptr_tmp is %s\n", ptr_tmp);
+        if (strncmp(ptr_tmp, func_name, strlen(func_name)) == 0) {
+            flag_func_name = 1;
+        }
+        ptr_tmp++;
+
+        if (flag_func_name) {
+            printf("http_record.c : %d:%d : is_func:maloc\n", line, col);
+        }
+    }
+
+    return false;
+}
+
+static bool is_memory_leak(FILE *fp, char *func_name)
+{
+    int annotat;
+    char buffer[MAX_NUM_LINE];
+    int line;
+
+    annotat = 0;
+    line = 0;
+    while (fgets(buffer, MAX_NUM_LINE, fp) != NULL) {
+        line++;
+        /* ignore comments in the code */
+        if (is_annotat(buffer)) {
+            annotat++;
+            printf("annotat is %d\n", annotat);
+        }
+        if ((annotat % 2) != 0) {
+            continue;
+        }
+
+        if (is_func(buffer, func_name, line)) {
+            
+        }
+
+        printf("func_name is %s\n", func_name);
+
+        /* XXX : wait for pefect */
+    }
+}
+
+int main(int argc, char *argv[])
+{
+    FILE *fp;
+    char *func_name;
+
+    fp = fopen(DEFAULT_FILE, "r");
+    if (fp == NULL) {
+        printf("open the C file failed: %s\n", strerror(errno));
+        return -1;
+    }
+
+    func_name = DEFAULT_FUNC;
+    
+    if (is_memory_leak(fp, func_name)) {
+        printf("warning!\n");
+    }
+
+    fclose(fp);
+
+    return 0;
+}

@@ -1,0 +1,77 @@
+2018-5-10
+
+annotat is 1
+/*
+ * Copyright(C) 2018 Ruijie Network. All rights reserved.
+annotat is 2
+ */
+annotat is 3
+/*
+ * http_record.c
+ * Original Author:  liqinban@ruijie.com.cn, 2018-4-9
+ *
+ * In a Windows environment, read the filter rule from a configuration
+ * file first, and then record the access log information of the local
+ * server to the EXCEL file.
+ *
+ * History
+ *   v1.2     zhuximin@ruijie.com.cn        2018-4-22
+ *            The function of the parse function is independently
+ *            composed of more simple and explicit functions, he-
+ *            -ader file references and function declarations us-
+ *            -ing the HTTP.h header file.
+ *   v1.1     zhuximin@ruijie.com.cn        2018-4-13
+ *            Modify the function implementation, and then import
+ *            the excel file after reading the url rule filter a-
+ *            -ccess record from config.txt.
+annotat is 4
+ */
+flag_tmp = 2
+#define BUF_MAX         1500             /* Maximum length of data */
+flag_tmp = 2
+#define IPADDR_LEN      32               /* length of IP address */
+flag_tmp = 2
+#define DATE_SIZE       11               /* length of date_buf array */
+flag_tmp = 2
+#define TIME_SIZE       9                /* length of time_buf array */
+flag_tmp = 2
+#define CONFIG_FILE     "config.txt"     /* filename of config */
+flag_tmp = 2
+#define EXCEL_FILE      "visitor.csv"    /* filename of excel */
+flag_tmp = 2
+#define MAX_URL_SNFX    10               /* Maximum length of the URL suffix */
+flag_tmp = 2
+#define URL_SIZE        2048             /* The URL of the GET method is the maximum length */
+flag_tmp = 2
+/* IP header */
+flag_tmp = 2
+/* TCP header */
+flag_tmp = 2
+    /* initiates use of the Winsock DLL by a process */
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 106
+line is 108
+line is 108
+line is 108
+line is 108

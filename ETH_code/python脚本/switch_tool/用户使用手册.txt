@@ -1,0 +1,51 @@
+一.该程序拥有的功能：
+
+      1.可批量或单一备份交换机的配置，并相应保存为.text配置文件；（程序备份时是在交换机的run-system-shell后台环境下
+                                                                   使用cat /data/config.text命令来读取文件）
+      
+      2.可批量或单一恢复交换机的配置；（程序恢复时是在交换机的run-system-shell后台环境下使用：
+                                        cat > data/config.text <<EOF命令来进行恢复，恢复的是config.text文件也就是startup-config）
+）
+
+二.使用前请先阅读以下内容：
+
+      1.该程序的测试成功的使用环境为：windows系统（其他系统的使用尚未测试)
+      2.该程序的使用要求:
+
+                        2.1 相应交换机已经配置好telnet功能，并可以实现正常连接；
+
+                        2.2 相应交换机的配置参数文件已经按要求编写
+
+      3.对于交换机的配置参数文件的编写格式说明：
+
+                        3.1 参数文件必须为.json文件格式
+
+                        3.2 添加或者删除相应交换机信息，必须按（switch+序号，如switch2）顺序添加交换机相应配置参数，其余内容不可随意修改！
+如：
+{
+	"switch0":{                                交换机在该文件中的编号，注意添加时从switch0开始！            
+	  "switchname":"xxxxxx",                   交换机的型号名
+	  "hostip":"xxx.xx.xx.xx",                 交换机Telnet的ip地址
+	  "port":"xx",                             交换机Telnet的端口
+      "tel_password":"xxxxxx",                     交换机Telnet登录密码
+      "username":"xxxxxx",                         交换机用户登录的账号
+      "u_password":"xxxxxx",                       交换机用户登录的密码
+      "en_password":"xxxxxx"                       交换机特权模式密码
+	},
+	"switch1":{
+	  "switchname":"RG-S2928G-E-V3 G1LQ40P000406",
+	  "hostip":"192.168.1.3",
+	  "port":"23",
+      "tel_password":"123",
+      "username":"",                               如果没有就设置为空字符串
+      "u_password":"",                             如果没有就设置为空字符串
+      "en_password":"ruijie"
+	}
+}
+   具体可参照程序文件夹下的样例.json文件
+      
+     4.备份功能下最终生成一个保存有每个交换机配置文件的文件夹
+
+       其中：生成的文件夹命名规则为：时间_conifg(如：2018-01-15_14-50-35_config)
+
+             生成的交换机配置文件命名规则是：交换机的型号名_config.text(如：RG-S2928G-E-V3 G1LQ40P000406_config.text)

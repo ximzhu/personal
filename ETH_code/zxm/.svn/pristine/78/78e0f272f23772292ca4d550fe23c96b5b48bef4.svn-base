@@ -1,0 +1,12 @@
+SHELL = /bin/sh
+CFLAGS = -Wall
+LIBRARY = -lws2_32
+http:http_record.o
+	gcc -o $@ $< $(LIBRARY) $(CFLAGS)
+
+http_record.o:http.h
+	gcc -c http_record.c $(CFLAGS)
+
+.PHPONY: clean
+clean:
+	rm -f *.o

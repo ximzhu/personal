@@ -1,0 +1,321 @@
+version CE01-Series_LVOS 11.4(1)B12S2
+hostname vsu
+!
+spanning-tree mst 0 priority 0
+spanning-tree
+!
+no enable web-auth listen
+!
+username admin password admin
+!
+no cwmp
+!
+service dhcp
+!
+ip dhcp pool user11
+ network 20.20.20.0 255.255.255.0
+ dns-server 192.168.58.110 
+ default-router 20.20.20.1 
+!
+install switch 1 CE0152T
+install switch 2 CE0128T
+install switch 3 CE0128P
+install switch 4 CE0128P
+install 1/0 CE0152T
+install 2/0 CE0128T
+install 4/0 CE0128P
+!
+sysmac 0074.9c00.ddd8
+!
+enable service web-server http
+enable service web-server https
+ip igmp profile 1
+ deny
+!
+nfpp
+!
+no service password-encryption
+!
+redundancy
+!
+no zam
+enable password fw
+enable service ssh-server
+enable service telnet-server
+!
+vlan range 1,10,20
+!
+interface GigabitEthernet 1/0/1
+!
+interface GigabitEthernet 1/0/2
+!
+interface GigabitEthernet 1/0/3
+!
+interface GigabitEthernet 1/0/4
+!
+interface GigabitEthernet 1/0/5
+!
+interface GigabitEthernet 1/0/6
+!
+interface GigabitEthernet 1/0/7
+!
+interface GigabitEthernet 1/0/8
+!
+interface GigabitEthernet 1/0/9
+!
+interface GigabitEthernet 1/0/10
+!
+interface GigabitEthernet 1/0/11
+ shutdown
+!
+interface GigabitEthernet 1/0/12
+!
+interface GigabitEthernet 1/0/13
+!
+interface GigabitEthernet 1/0/14
+!
+interface GigabitEthernet 1/0/15
+!
+interface GigabitEthernet 1/0/16
+!
+interface GigabitEthernet 1/0/17
+!
+interface GigabitEthernet 1/0/18
+!
+interface GigabitEthernet 1/0/19
+!
+interface GigabitEthernet 1/0/20
+!
+interface GigabitEthernet 1/0/21
+!
+interface GigabitEthernet 1/0/22
+!
+interface GigabitEthernet 1/0/23
+!
+interface GigabitEthernet 1/0/24
+!
+interface GigabitEthernet 1/0/25
+!
+interface GigabitEthernet 1/0/26
+!
+interface GigabitEthernet 1/0/27
+!
+interface GigabitEthernet 1/0/28
+!
+interface GigabitEthernet 1/0/29
+!
+interface GigabitEthernet 1/0/30
+!
+interface GigabitEthernet 1/0/31
+!
+interface GigabitEthernet 1/0/32
+!
+interface GigabitEthernet 1/0/33
+!
+interface GigabitEthernet 1/0/34
+!
+interface GigabitEthernet 1/0/35
+!
+interface GigabitEthernet 1/0/36
+!
+interface GigabitEthernet 1/0/37
+!
+interface GigabitEthernet 1/0/38
+!
+interface GigabitEthernet 1/0/39
+!
+interface GigabitEthernet 1/0/40
+!
+interface GigabitEthernet 1/0/41
+!
+interface GigabitEthernet 1/0/42
+!
+interface GigabitEthernet 1/0/43
+!
+interface GigabitEthernet 1/0/44
+!
+interface GigabitEthernet 1/0/45
+!
+interface GigabitEthernet 1/0/46
+!
+interface GigabitEthernet 1/0/47
+!
+interface GigabitEthernet 1/0/48
+!
+interface GigabitEthernet 1/0/49
+!
+interface GigabitEthernet 1/0/50
+!
+interface GigabitEthernet 1/0/51
+!
+interface GigabitEthernet 1/0/52
+!
+interface GigabitEthernet 2/0/1
+!
+interface GigabitEthernet 2/0/2
+!
+interface GigabitEthernet 2/0/3
+!
+interface GigabitEthernet 2/0/4
+!
+interface GigabitEthernet 2/0/5
+!
+interface GigabitEthernet 2/0/6
+!
+interface GigabitEthernet 2/0/7
+!
+interface GigabitEthernet 2/0/8
+!
+interface GigabitEthernet 2/0/9
+!
+interface GigabitEthernet 2/0/10
+!
+interface GigabitEthernet 2/0/11
+!
+interface GigabitEthernet 2/0/12
+!
+interface GigabitEthernet 2/0/13
+ switchport mode trunk
+!
+interface GigabitEthernet 2/0/14
+!
+interface GigabitEthernet 2/0/15
+ switchport mode trunk
+!
+interface GigabitEthernet 2/0/16
+!
+interface GigabitEthernet 2/0/17
+!
+interface GigabitEthernet 2/0/18
+!
+interface GigabitEthernet 2/0/19
+!
+interface GigabitEthernet 2/0/20
+!
+interface GigabitEthernet 2/0/21
+!
+interface GigabitEthernet 2/0/22
+!
+interface GigabitEthernet 2/0/23
+!
+interface GigabitEthernet 2/0/24
+!
+interface GigabitEthernet 2/0/25
+!
+interface GigabitEthernet 2/0/26
+!
+interface GigabitEthernet 2/0/27
+!
+interface GigabitEthernet 2/0/28
+!
+interface GigabitEthernet 4/0/1
+ poe enable
+ poe max-power 30.0
+!
+interface GigabitEthernet 4/0/2
+ poe enable
+ poe max-power 30.0
+!
+interface GigabitEthernet 4/0/3
+ poe enable
+!
+interface GigabitEthernet 4/0/4
+ poe enable
+ poe max-power 30.0
+!
+interface GigabitEthernet 4/0/5
+ speed 1000
+ poe enable
+!
+interface GigabitEthernet 4/0/6
+ switchport mode trunk
+ switchport trunk allowed vlan only 1,10,20,30
+ poe enable
+!
+interface GigabitEthernet 4/0/7
+ poe enable
+!
+interface GigabitEthernet 4/0/8
+ poe enable
+!
+interface GigabitEthernet 4/0/9
+ poe enable
+!
+interface GigabitEthernet 4/0/10
+ poe enable
+!
+interface GigabitEthernet 4/0/11
+ poe enable
+!
+interface GigabitEthernet 4/0/12
+ poe enable
+!
+interface GigabitEthernet 4/0/13
+ poe enable
+!
+interface GigabitEthernet 4/0/14
+ poe enable
+!
+interface GigabitEthernet 4/0/15
+ switchport access vlan 10
+ poe enable
+!
+interface GigabitEthernet 4/0/16
+ poe enable
+!
+interface GigabitEthernet 4/0/17
+ poe enable
+!
+interface GigabitEthernet 4/0/18
+ poe enable
+!
+interface GigabitEthernet 4/0/19
+ poe enable
+!
+interface GigabitEthernet 4/0/20
+ poe enable
+!
+interface GigabitEthernet 4/0/21
+ poe enable
+!
+interface GigabitEthernet 4/0/22
+ poe enable
+!
+interface GigabitEthernet 4/0/23
+ poe enable
+!
+interface GigabitEthernet 4/0/24
+ poe enable
+!
+interface GigabitEthernet 4/0/25
+!
+interface GigabitEthernet 4/0/26
+!
+interface GigabitEthernet 4/0/27
+!
+interface GigabitEthernet 4/0/28
+!
+interface VLAN 1
+ ip address dhcp
+!
+interface VLAN 20
+ ip address 20.20.20.1 255.255.255.0
+!
+monitor session 1 destination interface GigabitEthernet 4/0/13 switch
+monitor session 1 source interface GigabitEthernet 4/0/3 both
+monitor session 1 source interface GigabitEthernet 4/0/5 both
+!
+switch virtual domain 100
+!
+ip route 0.0.0.0 0.0.0.0 172.31.119.1
+!
+line console 0
+line vty 0 1
+ transport input ssh
+ login
+ password fw
+line vty 2 4
+ login
+ password fw
+!
+end

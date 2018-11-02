@@ -1,0 +1,65 @@
+/*
+ * Copyright(C) 2018 Ruijie Network. All rights reserved.
+ */
+/*
+ * http.h
+ * Original Author:  zhuximin.com.cn, 2018-4-22
+ *
+ * The header file of http_mingw.c,The related header files are included,
+ * and the related functions and TCP,IP structures are defined.
+ *
+ */
+
+#include <stdio.h>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+#include <stdlib.h>
+#include <Windows.h>
+#include <string.h>
+#include <time.h>
+#include <signal.h>
+#include <stdint.h>
+#include <stdbool.h>
+
+#define BUF_MAX         1500             /* Maximum length of data */
+#define IP_HEAD         20               /* IP header */
+#define IPADDR_LEN      32               /* length of IP address */
+#define DATE_SIZE       20               /* length of date_buf array */
+#define TIME_SIZE       80               /* length of time_buf array */
+#define CONFIG_FILE     "config.txt"     /* filename of config */
+#define EXCEL_FILE      "visitor.csv"    /* filename of excel */
+#define MAX_URL_SNFX    10               /* Maximum length of the URL suffix */
+#define URL_SIZE        2048             /* The URL of the GET method is the maximum length */
+
+typedef struct ip_hdr {
+    uint8_t h_verlen;
+    uint8_t tos;
+    uint16_t total_len;
+    uint16_t ident;
+    uint16_t frag_and_flags;
+    uint8_t ttl;
+    uint8_t proto;
+    uint16_t checksum;
+    struct in_addr sip;
+    struct in_addr dip;
+}ip_hdr_t;
+
+typedef struct tcp_hdr {
+    uint16_t sport;
+    uint16_t dport;
+    uint32_t seq;
+    uint32_t ack;
+    uint8_t lenres;
+    uint8_t flag;
+    uint16_t win;
+    uint16_t sum;
+    uint16_t urp;
+}tcp_hdr_t;
+
+static void get_ip(uint8_t *ip_buf, uint8_t *buf);
+static void get_url(char *url, uint8_t *buf);
+static bool is_url_snfx(char *url, int url_size);
+static void get_time(char *date_buf, char *time_buf);
+static void record_visit(uint8_t *ip_buf, char *url);
+static void parse(uint8_t *buf);
+static void stop(int signo);

@@ -1,0 +1,5 @@
+http:http_record.o
+	gcc -Wall -o http http_record.o -lws2_32
+
+http_record.o:http_record.c http.h
+	gcc -Wall -c http_record.c http.h -lws2_32
